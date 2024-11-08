@@ -8,7 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -40,6 +42,15 @@ public class TaskController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<TaskDto> create(@RequestBody TaskDto entity) {
 		var task = this.taskService.create(entity);
+		TaskDto dto = new TaskDto(task);
+		return ResponseEntity.ok(dto);
+	}
+	
+	@PutMapping("/{taskId}/save")
+	@ResponseStatus(HttpStatus.OK)
+	public ResponseEntity<TaskDto> save(@PathVariable("taskId") final long taskId,
+			@RequestBody TaskDto entity) {
+		var task = this.taskService.save(taskId, entity);
 		TaskDto dto = new TaskDto(task);
 		return ResponseEntity.ok(dto);
 	}

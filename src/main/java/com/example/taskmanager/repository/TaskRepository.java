@@ -5,10 +5,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.taskmanager.domain.Task;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
-	List<Task> findAllById(Long id);
+	Optional<Task> findById(Long id);
 	List<Task> findAllByName(String name);
+	List<Task> findAllByOrderByIdAsc();
 
 }
