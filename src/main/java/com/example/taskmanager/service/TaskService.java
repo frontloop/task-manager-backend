@@ -1,5 +1,7 @@
 package com.example.taskmanager.service;
 
+import java.time.Instant;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +30,9 @@ public class TaskService {
     public Task create(TaskDto transferObject) {
         Task task = new Task();
         task.setName(transferObject.getName());
+        task.setDone(transferObject.getDone());
+        task.setCreated(Instant.now());
+        task.setPriority(transferObject.getPriority());
         task = taskRepository.save(task);
         return task;
     }
