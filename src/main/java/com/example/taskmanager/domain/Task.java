@@ -20,11 +20,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Task extends DBOEntity {
+public class Task {
 
 	@Id
-	@SequenceGenerator(name = "EMBE_KONTAKT_ID_GENERATOR", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "EMBE_KONTAKT_ID_GENERATOR")
+	@SequenceGenerator(name = "TASK_ID_GENERATOR", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TASK_ID_GENERATOR")
 	private Long id;
 
 	@Column

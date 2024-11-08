@@ -8,8 +8,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
 
 import java.util.List;
 
@@ -30,5 +34,13 @@ public class TaskController {
 	public ResponseEntity<List<TaskDto>> getAll() {
 		List<TaskDto> dtos = this.taskService.getAll();
 		return ResponseEntity.ok(dtos);
+	}
+	
+	@PostMapping("/create")
+	@ResponseStatus(HttpStatus.CREATED)
+	public ResponseEntity<TaskDto> create(@RequestBody TaskDto entity) {
+		var task = this.taskService.create(entity);
+		TaskDto dto = new TaskDto(task);
+		return ResponseEntity.ok(dto);
 	}
 }

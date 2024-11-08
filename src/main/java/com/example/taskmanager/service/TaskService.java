@@ -1,6 +1,7 @@
 package com.example.taskmanager.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.taskmanager.repository.TaskRepository;
 import com.example.taskmanager.domain.Task;
@@ -22,5 +23,13 @@ public class TaskService {
 		final List<Task> tasks = taskRepository.findAll();
 		return tasks.stream().map(TaskDto::new).collect(Collectors.toList());
 	}
+	
+	@Transactional
+    public Task create(TaskDto transferObject) {
+        Task task = new Task();
+        task.setName(transferObject.getName());
+        task = taskRepository.save(task);
+        return task;
+    }
 
 }
